@@ -11,7 +11,7 @@
 </div>
 
 (function() {
-  var DV_APP_VERSION = "1";
+  var DV_APP_VERSION = "1.2";
   var DV_STORAGE_KEY = "dv_hymns_app_version";
   console.log("%cProtected by DV Architecture", "color:#1877F2; font-weight:900; font-size:13px;");
   var modal = document.getElementById('dvUniversalUpdateModal');
