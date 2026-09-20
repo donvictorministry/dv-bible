@@ -14,7 +14,7 @@
       const allNotes = await dbAll();
       if (!allNotes || allNotes.length === 0) return toast('No notes to export.');
 
-      let textContent = "DV HYMNS - EXPORTED NOTES\n\n";
+      let textContent = "DV EXPORTED NOTES\n\n";
       allNotes.forEach(n => {
         const d = new Date(n.updatedAt).toLocaleString();
         textContent += `=== ${n.title || 'Untitled'} ===\nDate: ${d}\n\n${n.plain || ''}\n\n---------------------------\n\n`;
