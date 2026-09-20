@@ -1,11 +1,11 @@
-const CACHE_NAME = 'dv-bible-hymns-cache-v1.2';
+const CACHE_NAME = 'dv-bible-hymns-cache-v2';
 const CORE_ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './dv.js',
-  './bible.js',
+  './bible.html',
   './manifest.json'
 ];
 
