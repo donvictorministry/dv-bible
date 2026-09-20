@@ -1,0 +1,702 @@
+
+
+#dvbShell {
+  position: fixed; inset: 0; z-index: 19999;
+  display: none; flex-direction: column;
+  font-family: Roboto, 'Segoe UI', Arial, sans-serif;
+  font-size: 22px;
+  --dvb-pri: var(--primary);
+  --dvb-pri-dk: var(--primary-hover);
+  --dvb-bg: #F0F2F5;
+  --dvb-surf: #FFFFFF;
+  --dvb-text: #050505;
+  --dvb-sub: #65676B;
+  --dvb-bdr: #CED0D4;
+  --dvb-sh: 0 2px 12px rgba(0,0,0,0.10);
+  --dvb-sh-lg: 0 8px 32px rgba(0,0,0,0.20);
+  --dvb-fs: 18px;
+  background: var(--dvb-bg);
+}
+#dvbShell.dvb-open { display: flex; }
+
+/* Dark mode */
+#dvbShell.dvb-dark {
+  --dvb-bg: #18191A;
+  --dvb-surf: #242526;
+  --dvb-text: #E4E6EB;
+  --dvb-sub: #B0B3B8;
+  --dvb-bdr: #3E4042;
+  --dvb-sh: 0 2px 12px rgba(0,0,0,0.4);
+  --dvb-sh-lg: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+/* Header */
+.dvb-header {
+  background: var(--dvb-pri);
+  padding: 0 12px;
+  height: 58px;
+  display: flex; align-items: center; gap: 8px;
+  flex-shrink: 0;
+  box-shadow: var(--dvb-sh);
+}
+
+.dvb-header-title {
+  flex: 1; color: #fff; font-weight: 700; font-size: 1rem;
+  text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.dvb-back-btn {
+  height: 38px; padding: 0 14px 0 8px; border-radius: 19px;
+  background: gold; border: none;
+  display: flex; align-items: center; gap: 4px;
+  color: red; cursor: pointer; flex-shrink: 0;
+  font-size: 0.95rem; font-weight: 800; font-family: inherit;
+  -webkit-tap-highlight-color: transparent; transition: opacity 0.15s;
+}
+.dvb-back-btn:active { opacity: 0.8; }
+
+/* Nav bar */
+.dvb-nav {
+  background: var(--dvb-surf);
+  padding: 8px 6px;
+  display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--dvb-bdr);
+  box-shadow: var(--dvb-sh);
+  flex-wrap: nowrap;
+}
+.dvb-sel {
+  flex: 1; min-width: 0;
+  padding: 8px 6px;
+  border: 2px solid var(--dvb-bdr);
+  border-radius: 10px;
+  background: var(--dvb-bg);
+  color: var(--dvb-text);
+  font-size: 0.95rem; font-family: inherit;
+  font-weight: 600;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.dvb-sel:focus { outline: none; border-color: var(--dvb-pri); }
+.dvb-nav-btn {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: var(--dvb-bg); border: 2px solid var(--dvb-bdr);
+  color: var(--dvb-text); cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+.dvb-nav-btn:active { background: var(--dvb-bdr); }
+
+/* Font size & Search Row */
+.dvb-fs-slider-wrap {
+  width: 100%; background: var(--dvb-surf); border-bottom: 1px solid var(--dvb-bdr);
+  padding: 10px 12px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.dvb-fs-col { 
+  display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; 
+}
+.dvb-fs-icon-small { font-size: 0.9rem; font-weight: 700; color: var(--dvb-sub); user-select: none; flex-shrink: 0; }
+.dvb-fs-icon-large { font-size: 1.2rem; font-weight: 700; color: var(--dvb-sub); user-select: none; flex-shrink: 0; }
+.dvb-fs-col input[type=range] { flex: 1; min-width: 0; accent-color: var(--dvb-pri); cursor: pointer; margin: 0; }
+
+.dvb-search-col {
+  display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+  background: var(--dvb-bg); border: 2px solid var(--dvb-bdr);
+  border-radius: 10px; padding: 6px 10px;
+}
+.dvb-search-col:focus-within { border-color: var(--dvb-pri); }
+.dvb-search-col input {
+  flex: 1; min-width: 0; border: none; background: transparent;
+  font-size: 0.95rem; color: var(--dvb-text); font-family: inherit; outline: none;
+}
+.dvb-search-col svg { width: 18px; height: 18px; color: var(--dvb-sub); flex-shrink: 0; }
+.dvb-search-hl { background: rgba(255, 193, 7, 0.4); border-bottom: 2px solid #FFC107; font-weight: bold; }
+
+.dvb-dark-toggle {
+  flex: 1; min-width: 0;
+  padding: 8px 6px;
+  border: 2px solid var(--dvb-bdr);
+  border-radius: 10px;
+  background: var(--dvb-bg);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.dvb-dark-label { font-size: 0.88rem; color: var(--dvb-sub); font-weight: 600; }
+.dvb-toggle-sw {
+  width: 48px; height: 26px; border-radius: 13px;
+  background: var(--dvb-bdr); border: none; cursor: pointer;
+  position: relative; transition: background 0.2s; flex-shrink: 0;
+}
+.dvb-toggle-sw.dvb-on { background: var(--dvb-pri); }
+.dvb-toggle-th {
+  position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+.dvb-toggle-sw.dvb-on .dvb-toggle-th { transform: translateX(22px); }
+
+/* Scroll area */
+.dvb-scroll {
+  flex: 1; overflow-y: auto;
+  padding: 16px 14px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Chapter title */
+.dvb-chap-title {
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--dvb-pri); margin-bottom: 16px;
+  padding-bottom: 10px; border-bottom: 2px solid var(--dvb-bdr);
+}
+
+/* Verses */
+.dvb-verse {
+  display: block;
+  font-size: var(--dvb-fs);
+  line-height: 1.75;
+  color: var(--dvb-text);
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  border: 2px solid transparent;
+}
+.dvb-verse:active { background: var(--dvb-bg); }
+.dvb-verse.dvb-hl {
+  background: rgba(255,235,59,0.35);
+  border-color: transparent;
+}
+#dvbShell.dvb-dark .dvb-verse.dvb-hl {
+  background: rgba(255,235,59,0.15);
+}
+.dvb-vnum {
+  font-weight: 700; color: var(--dvb-pri);
+  margin-right: 6px; font-size: 0.88em;
+}
+
+/* Show more */
+.dvb-show-more {
+  width: 100%; padding: 14px;
+  background: var(--dvb-bg); border: 2px solid var(--dvb-bdr);
+  border-radius: 12px; color: var(--dvb-pri);
+  font-size: 1rem; font-weight: 700; font-family: inherit;
+  cursor: pointer; margin-top: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.dvb-show-more:active { background: var(--dvb-bdr); }
+
+/* Spinner */
+.dvb-spinner {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 20px; gap: 14px;
+}
+.dvb-spin-ring {
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 5px solid var(--dvb-bdr);
+  border-top-color: var(--dvb-pri);
+  animation: dvbSpin 0.9s linear infinite;
+}
+@keyframes dvbSpin { to { transform: rotate(360deg); } }
+.dvb-spin-txt { font-size: 1.1rem; font-weight: 700; color: var(--dvb-text); }
+.dvb-spin-sub { font-size: 0.95rem; color: var(--dvb-sub); }
+.dvb-retry-btn {
+  padding: 13px 28px; background: var(--dvb-pri); color: #fff;
+  border: none; border-radius: 12px; font-size: 1rem;
+  font-weight: 700; font-family: inherit; cursor: pointer; margin-top: 8px;
+}
+/* Toast */
+.dvb-toast {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  background: rgba(20,20,20,0.93); color: #fff;
+  padding: 13px 24px; border-radius: 30px;
+  font-size: 1rem; font-weight: 600;
+  z-index: 20200; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap; max-width: 85vw; text-align: center;
+}
+.dvb-toast.dvb-toast-show {
+  opacity: 1; transform: translate(-50%, -50%) scale(1);
+}
+</style>
+
+<!-- DVB WIDGET HTML -->
+<div id="dvbShell">
+
+  <!-- Header -->
+  <div class="dvb-header">
+    <button class="dvb-back-btn" onclick="dvbClose()" aria-label="Return Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>EXIT</span>
+    </button>
+    <div class="dvb-header-title">Holy Bible (KJV)</div>
+  </div>
+
+  <!-- Book / Chapter / Dark mode selectors -->
+  <div class="dvb-nav">
+    <select class="dvb-sel" id="dvbBookSel" onchange="dvbOnBookChange()" aria-label="Select book"></select>
+    <select class="dvb-sel" id="dvbChapSel" onchange="dvbOnChapChange()" aria-label="Select chapter"></select>
+    <div class="dvb-dark-toggle">
+      <span class="dvb-dark-label">Dark</span>
+      <button class="dvb-toggle-sw" id="dvbDarkSw" onclick="dvbToggleDark()" aria-label="Toggle dark mode">
+        <span class="dvb-toggle-th"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Font size & Search Row -->
+  <div class="dvb-fs-slider-wrap">
+    <div class="dvb-fs-col">
+      <span class="dvb-fs-icon-small">A</span>
+      <input type="range" id="dvbFsSlider" min="25" max="28" step="1" value="25" oninput="dvbChFS(this.value)" aria-label="Adjust font size">
+      <span class="dvb-fs-icon-large">A+</span>
+    </div>
+    <div class="dvb-search-col">
+      <svg onclick="dvbTriggerSearch()" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" enterkeyhint="search" id="dvbSearchInput" placeholder="Search" onkeydown="dvbHandleSearchKey(event)">
+    </div>
+  </div>
+
+  <!-- Reading area -->
+  <div class="dvb-scroll" id="dvbScroll">
+    <div id="dvbRead"></div>
+  </div>
+</div>
+
+<!-- DVB Toast -->
+<div class="dvb-toast" id="dvbToast"></div>
+
+<script>
+(function() {
+
+/* ── DVB STATE ── */
+var dvbMeta       = null;
+var dvbBook       = 'Genesis';
+var dvbChap       = 1;
+var dvbFS         = parseInt(localStorage.getItem('dvb_fs') || '25');
+var dvbShown      = 10;
+var dvbAllVerses  = [];
+var dvbDark       = localStorage.getItem('dvb_dark') === '1';
+var dvbChapHighlights = [];
+var dvbToastTimer = null;
+var dvbInitDone   = false;
+
+var DVB_BOOKS = [
+  'Genesis','Exodus','Leviticus','Numbers','Deuteronomy','Joshua','Judges','Ruth',
+  '1 Samuel','2 Samuel','1 Kings','2 Kings','1 Chronicles','2 Chronicles',
+  'Ezra','Nehemiah','Esther','Job','Psalms','Proverbs','Ecclesiastes',
+  'Song of Solomon','Isaiah','Jeremiah','Lamentations','Ezekiel','Daniel',
+  'Hosea','Joel','Amos','Obadiah','Jonah','Micah','Nahum','Habakkuk',
+  'Zephaniah','Haggai','Zechariah','Malachi',
+  'Matthew','Mark','Luke','John','Acts','Romans',
+  '1 Corinthians','2 Corinthians','Galatians','Ephesians','Philippians',
+  'Colossians','1 Thessalonians','2 Thessalonians','1 Timothy','2 Timothy',
+  'Titus','Philemon','Hebrews','James','1 Peter','2 Peter',
+  '1 John','2 John','3 John','Jude','Revelation'
+];
+
+/* ── DVB IDB (isolated store names dvb_meta / dvb_bible) ── */
+var DVB_IDB = (function() {
+  var db = null;
+  function open() {
+    return new Promise(function(res, rej) {
+      if (db) { res(db); return; }
+      var req = indexedDB.open('dvb_bible_db', 2);
+      req.onupgradeneeded = function(e) {
+        var d = e.target.result;
+        if (!d.objectStoreNames.contains('dvb_meta'))  d.createObjectStore('dvb_meta',  { keyPath:'id' });
+        if (!d.objectStoreNames.contains('dvb_bible')) d.createObjectStore('dvb_bible', { keyPath:'id' });
+        if (!d.objectStoreNames.contains('dvb_highlights')) d.createObjectStore('dvb_highlights', { keyPath:'id' });
+      };
+      req.onsuccess = function(e) { db = e.target.result; res(db); };
+      req.onerror   = function(e) { rej(e); };
+    });
+  }
+  function tx(store, mode) {
+    return open().then(function(d) { return d.transaction(store, mode).objectStore(store); });
+  }
+  return {
+    get: function(store, key) {
+      return tx(store, 'readonly').then(function(s) {
+        return new Promise(function(res, rej) {
+          var r = s.get(key); r.onsuccess = function() { res(r.result); }; r.onerror = rej;
+        });
+      });
+    },
+    put: function(store, val) {
+      return tx(store, 'readwrite').then(function(s) {
+        return new Promise(function(res, rej) {
+          var r = s.put(val); r.onsuccess = function() { res(); }; r.onerror = rej;
+        });
+      });
+    },
+    del: function(store, key) {
+      return tx(store, 'readwrite').then(function(s) {
+        return new Promise(function(res, rej) {
+          var r = s.delete(key); r.onsuccess = function() { res(); }; r.onerror = rej;
+        });
+      });
+    },
+    all: function(store) {
+      return tx(store, 'readonly').then(function(s) {
+        return new Promise(function(res, rej) {
+          var r = s.getAll(); r.onsuccess = function() { res(r.result || []); }; r.onerror = rej;
+        });
+      });
+    }
+  };
+})();
+
+/* ── TOAST ── */
+function dvbToast(msg) {
+  var el = document.getElementById('dvbToast');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('dvb-toast-show');
+  clearTimeout(dvbToastTimer);
+  dvbToastTimer = setTimeout(function() { el.classList.remove('dvb-toast-show'); }, 2400);
+}
+
+/* ── SHELL OPEN/CLOSE ── */
+window.dvbOpen = function() {
+  var shell = document.getElementById('dvbShell');
+  shell.classList.add('dvb-open');
+  document.querySelectorAll('.navbtn').forEach(function(b) { b.classList.remove('active'); });
+  var bibleBtn = document.getElementById('dvbNavBtn');
+  if (bibleBtn) bibleBtn.classList.add('active');
+  if (!dvbInitDone) { dvbInitDone = true; dvbInit(); }
+};
+window.dvbClose = function() {
+  document.getElementById('dvbShell').classList.remove('dvb-open');
+  if (typeof gotoPage === 'function') gotoPage('home');
+};
+
+/* ── DARK MODE ── */
+function dvbApplyDark() {
+  var shell = document.getElementById('dvbShell');
+  var sw    = document.getElementById('dvbDarkSw');
+  shell.classList.toggle('dvb-dark', dvbDark);
+  if (sw) sw.classList.toggle('dvb-on', dvbDark);
+}
+window.dvbToggleDark = function() {
+  dvbDark = !dvbDark;
+  localStorage.setItem('dvb_dark', dvbDark ? '1' : '0');
+  dvbApplyDark();
+};
+
+/* ── FONT SIZE ── */
+function dvbApplyFS() {
+  document.getElementById('dvbShell').style.setProperty('--dvb-fs', dvbFS + 'px');
+  var s = document.getElementById('dvbFsSlider'); if(s) s.value = dvbFS;
+}
+window.dvbChFS = function(val) {
+  dvbFS = Math.max(25, Math.min(28, parseInt(val)));
+  localStorage.setItem('dvb_fs', dvbFS);
+  dvbApplyFS();
+};
+
+/* ── INIT ── */
+async function dvbInit() {
+  dvbApplyDark();
+  dvbApplyFS();
+  try { dvbMeta = await DVB_IDB.get('dvb_meta', 'structure'); } catch(e) {}
+
+  // Wipe corrupted meta
+  if (dvbMeta && dvbMeta.books) {
+    var bkeys = Object.keys(dvbMeta.books);
+    if (!bkeys.length || bkeys[0] === 'undefined') {
+      try {
+        await DVB_IDB.del('dvb_meta', 'structure');
+        var all = await DVB_IDB.all('dvb_bible');
+        await Promise.all(all.map(function(c) { return DVB_IDB.del('dvb_bible', c.id); }));
+      } catch(e) {}
+      dvbMeta = null;
+    }
+  }
+
+  if (!dvbMeta) {
+    dvbShowSpinner('Loading the Word of God', 'The King James Bible&hellip;');
+    dvbDownload();
+    return;
+  }
+
+  // Restore last position
+  var saved = localStorage.getItem('dvb_state');
+  if (saved) {
+    try {
+      var s = JSON.parse(saved);
+      dvbBook = (s.book && dvbMeta.books[s.book]) ? s.book : DVB_BOOKS[0];
+      var cl = dvbMeta.books[dvbBook] || [1];
+      dvbChap = cl.indexOf(Number(s.chapter)) !== -1 ? Number(s.chapter) : cl[0];
+    } catch(e) { dvbBook = DVB_BOOKS[0]; dvbChap = 1; }
+  } else {
+    dvbBook = Object.keys(dvbMeta.books)[0] || DVB_BOOKS[0];
+    dvbChap = (dvbMeta.books[dvbBook] || [1])[0];
+  }
+  dvbPopulateNav();
+  dvbLoadChapter();
+}
+
+/* ── SPINNER ── */
+function dvbShowSpinner(txt, sub) {
+  document.getElementById('dvbRead').innerHTML =
+    '<div class="dvb-spinner">' +
+    '<div class="dvb-spin-ring"></div>' +
+    '<div class="dvb-spin-txt">' + txt + '</div>' +
+    '<div class="dvb-spin-sub">' + sub + '</div>' +
+    '</div>';
+}
+
+/* ── DOWNLOAD & INDEX ── */
+async function dvbDownload() {
+  try {
+    var res = await fetch('https://cdn.jsdelivr.net/gh/donvictorministry/bible@master/json/en_kjv.json');
+    if (!res.ok) throw new Error('Network error');
+    var raw = await res.json();
+    if (!Array.isArray(raw)) throw new Error('Bad data');
+
+    var chunks = {}, booksMap = {};
+    raw.forEach(function(book, bi) {
+      var name = DVB_BOOKS[bi] || ('Book' + (bi + 1));
+      if (!booksMap[name]) booksMap[name] = [];
+      (book.chapters || []).forEach(function(verses, ci) {
+        var cn = ci + 1;
+        var key = name + '_' + cn;
+        chunks[key] = { id: key, verses: {} };
+        (verses || []).forEach(function(txt, vi) { chunks[key].verses[vi + 1] = txt || ''; });
+        if (booksMap[name].indexOf(cn) === -1) booksMap[name].push(cn);
+      });
+    });
+
+    var meta = { id: 'structure', books: {} };
+    for (var b in booksMap) meta.books[b] = booksMap[b].sort(function(a, z) { return a - z; });
+    await DVB_IDB.put('dvb_meta', meta);
+
+    var keys = Object.keys(chunks);
+    for (var i = 0; i < keys.length; i += 100) {
+      var batch = keys.slice(i, i + 100);
+      await Promise.all(batch.map(function(k) { return DVB_IDB.put('dvb_bible', chunks[k]); }));
+      await new Promise(function(r) { setTimeout(r, 0); });
+    }
+    dvbMeta = meta;
+    dvbToast('Bible downloaded successfully');
+    dvbInit();
+  } catch(err) {
+    document.getElementById('dvbRead').innerHTML =
+      '<div class="dvb-spinner">' +
+      '<div class="dvb-spin-txt" style="color:#DC2626">Download Failed</div>' +
+      '<div class="dvb-spin-sub">Check your connection and try again</div>' +
+      '<button class="dvb-retry-btn" onclick="dvbRetry()">Retry</button>' +
+      '</div>';
+  }
+}
+window.dvbRetry = function() { dvbShowSpinner('Retrying download&hellip;', 'Please wait'); dvbDownload(); };
+
+/* ── NAV ── */
+function dvbPopulateNav() {
+  var bSel = document.getElementById('dvbBookSel');
+  if (!bSel || !dvbMeta) return;
+  bSel.innerHTML = Object.keys(dvbMeta.books).map(function(b) {
+    return '<option value="' + b + '">' + b + '</option>';
+  }).join('');
+  bSel.value = dvbBook;
+  dvbUpdateChapSel();
+}
+function dvbUpdateChapSel() {
+  var cSel = document.getElementById('dvbChapSel');
+  var chaps = dvbMeta && dvbMeta.books && dvbMeta.books[dvbBook];
+  if (!cSel || !chaps) return;
+  cSel.innerHTML = chaps.map(function(c) { return '<option value="' + c + '">Ch. ' + c + '</option>'; }).join('');
+  cSel.value = dvbChap;
+}
+window.dvbOnBookChange = function() {
+  if (!dvbMeta) return;
+  dvbBook = document.getElementById('dvbBookSel').value;
+  dvbChap = (dvbMeta.books[dvbBook] || [1])[0];
+  dvbUpdateChapSel();
+  dvbLoadChapter();
+};
+window.dvbOnChapChange = function() {
+  dvbChap = Number(document.getElementById('dvbChapSel').value);
+  dvbLoadChapter();
+};
+window.dvbNavPrev = function() {
+  if (!dvbMeta || !dvbMeta.books[dvbBook]) return;
+  var chaps = dvbMeta.books[dvbBook];
+  var idx = chaps.indexOf(Number(dvbChap));
+  if (idx > 0) {
+    dvbChap = chaps[idx - 1];
+  } else {
+    var bi = DVB_BOOKS.indexOf(dvbBook);
+    if (bi > 0) { dvbBook = DVB_BOOKS[bi - 1]; var pc = dvbMeta.books[dvbBook] || [1]; dvbChap = pc[pc.length - 1]; }
+  }
+  dvbPopulateNav(); dvbLoadChapter();
+};
+window.dvbNavNext = function() {
+  if (!dvbMeta || !dvbMeta.books[dvbBook]) return;
+  var chaps = dvbMeta.books[dvbBook];
+  var idx = chaps.indexOf(Number(dvbChap));
+  if (idx < chaps.length - 1) {
+    dvbChap = chaps[idx + 1];
+  } else {
+    var bi = DVB_BOOKS.indexOf(dvbBook);
+    if (bi < DVB_BOOKS.length - 1) { dvbBook = DVB_BOOKS[bi + 1]; dvbChap = (dvbMeta.books[dvbBook] || [1])[0]; }
+  }
+  dvbPopulateNav(); dvbLoadChapter();
+};
+
+/* ── LOAD CHAPTER ── */
+async function dvbLoadChapter() {
+  localStorage.setItem('dvb_state', JSON.stringify({ book: dvbBook, chapter: dvbChap }));
+  dvbShown = 10;
+  dvbChapHighlights = [];
+  try {
+    var hlData = await DVB_IDB.get('dvb_highlights', dvbBook + '_' + dvbChap);
+    if (hlData && hlData.verses) dvbChapHighlights = hlData.verses;
+    var data = await DVB_IDB.get('dvb_bible', dvbBook + '_' + dvbChap);
+    if (!data || !data.verses) { dvbToast('Chapter not found'); return; }
+    dvbAllVerses = Object.keys(data.verses).map(function(v) { return { num: v, text: data.verses[v] || '' }; });
+    dvbRenderVerses();
+    var sc = document.getElementById('dvbScroll');
+    if (sc) sc.scrollTop = 0;
+  } catch(e) { dvbToast('Error loading chapter'); }
+}
+
+/* ── RENDER ── */
+function dvbRenderVerses() {
+  var container = document.getElementById('dvbRead');
+  if (!container) return;
+  var total = dvbAllVerses.length;
+  var shown = Math.min(dvbShown, total);
+  var html = '<div class="dvb-chap-title">' + dvbBook + ' ' + dvbChap + '</div>';
+  for (var i = 0; i < shown; i++) {
+    var num  = dvbAllVerses[i].num;
+    var text = dvbAllVerses[i].text;
+    var safe = text.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    html += '<span class="dvb-verse' + (dvbChapHighlights.indexOf(num) !== -1 ? ' dvb-hl' : '') +
+      '" id="dvbv-' + num + '" onclick="dvbVerseClick(\'' + num + '\',\'' + safe + '\')">' +
+      '<span class="dvb-vnum">' + num + '</span>' + text + '</span>';
+  }
+  if (shown < total) {
+    html += '<button class="dvb-show-more" onclick="dvbShowMore()">Show more — ' + (total - shown) + ' verses remaining</button>';
+  }
+  container.innerHTML = html;
+}
+window.dvbShowMore = function() {
+  dvbShown += 10;
+  var sc = document.getElementById('dvbScroll');
+  var pos = sc ? sc.scrollTop : 0;
+  dvbRenderVerses();
+  if (sc) sc.scrollTop = pos;
+};
+/* ── VERSE HIGHLIGHT ── */
+window.dvbVerseClick = function(num) {
+  var el = document.getElementById('dvbv-' + num);
+  if (!el) return;
+  el.classList.toggle('dvb-hl');
+  
+  var idx = dvbChapHighlights.indexOf(num);
+  if (idx !== -1) dvbChapHighlights.splice(idx, 1);
+  else dvbChapHighlights.push(num);
+  
+  DVB_IDB.put('dvb_highlights', { id: dvbBook + '_' + dvbChap, verses: dvbChapHighlights });
+};
+
+/* ── OFFLINE SEARCH ENGINE ── */
+window.dvbHandleSearchKey = function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    dvbTriggerSearch();
+  }
+};
+
+window.dvbTriggerSearch = function() {
+  var input = document.getElementById('dvbSearchInput');
+  input.blur(); // Hides Android keyboard
+  var q = input.value.trim();
+  if (q) {
+    dvbRunSearch(q);
+  } else {
+    dvbLoadChapter(); // Clears results if empty
+  }
+};
+
+async function dvbRunSearch(query) {
+  dvbShowSpinner('Searching...', 'Finding matches for "' + query + '"');
+  try {
+    var all = await DVB_IDB.all('dvb_bible');
+    var results = [];
+    var qLower = query.toLowerCase();
+    
+    for (var i = 0; i < all.length; i++) {
+      var chap = all[i];
+      var parts = chap.id.split('_');
+      var bName = parts[0];
+      var cNum = parts[1];
+      
+      for (var vNum in chap.verses) {
+        var text = chap.verses[vNum];
+        if (text && text.toLowerCase().indexOf(qLower) !== -1) {
+          results.push({ book: bName, chap: cNum, vNum: vNum, text: text });
+          if (results.length >= 50) break; // Limit to 50 for max performance
+        }
+      }
+      if (results.length >= 50) break;
+    }
+
+    var container = document.getElementById('dvbRead');
+    if (results.length === 0) {
+      container.innerHTML = '<div class="dvb-chap-title">No results found</div>';
+      return;
+    }
+
+    var html = '<div class="dvb-chap-title">Found ' + results.length + ' matches</div>';
+    // Regex to highlight the searched word exactly
+    var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    
+    results.forEach(function(r) {
+      var ref = r.book + ' ' + r.chap + ':' + r.vNum;
+      var hlText = r.text.replace(regex, '<span class="dvb-search-hl">$1</span>');
+      html += '<div class="dvb-verse" style="margin-bottom:12px; border:1px solid var(--dvb-bdr);" onclick="dvbJumpTo(\'' + r.book + '\',' + r.chap + ',\'' + r.vNum + '\')">' +
+              '<div style="font-size:0.85em; font-weight:700; color:var(--dvb-pri); margin-bottom:4px;">' + ref + '</div>' +
+              '<div>' + hlText + '</div></div>';
+    });
+    
+    container.innerHTML = html;
+    var sc = document.getElementById('dvbScroll');
+    if (sc) sc.scrollTop = 0;
+  } catch(e) {
+    dvbToast('Search failed');
+    dvbLoadChapter();
+  }
+}
+
+window.dvbJumpTo = async function(book, chap, vNum) {
+  document.getElementById('dvbSearchInput').value = ''; // Clear search box
+  dvbBook = book;
+  dvbChap = Number(chap);
+  dvbUpdateChapSel();
+  document.getElementById('dvbBookSel').value = dvbBook;
+  
+  await dvbLoadChapter();
+  
+  // Delay slightly to let the chapter render, then scroll and highlight
+  setTimeout(function() {
+    var el = document.getElementById('dvbv-' + vNum);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Automatically toggle the highlight on for the user if it isn't already
+      if (!el.classList.contains('dvb-hl')) {
+        dvbVerseClick(vNum);
+      }
+    }
+  }, 150);
+};
+})();
