@@ -700,3 +700,6 @@ window.dvbJumpTo = async function(book, chap, vNum) {
   }, 150);
 };
 })();
+</script>
+</body>
+</html>
