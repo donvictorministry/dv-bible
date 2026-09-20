@@ -1,4 +1,6 @@
 
+
+
 window.DV = window.DV || {};
 DV.build = "DV-Hymns-1.0";
 const HYMNS = [
@@ -521,7 +523,108 @@ const HYMNS = [
 "Have you been to Jesus for the cleansing power?\nAre you washed in the blood of the Lamb?\nAre you fully trusting in His grace this hour?\nAre you washed in the blood of the Lamb?"]},
 
 {t:"Down at the Cross", a:"Elisha A. Hoffman, 1878", verses:[
-"Down at the cross where my Savior died,\nDown where for cleansing from sin I cried,\nThere to my heart was the blood applied;\nGlory to His Name!"]}
+"Down at the cross where my Savior died,\nDown where for cleansing from sin I cried,\nThere to my heart was the blood applied;\nGlory to His Name!"]},
+{t:"At Calvary", a:"William R. Newell, 1895", verses:[
+"Years I spent in vanity and pride,\nCaring not my Lord was crucified,\nKnowing not it was for me He died\nOn Calvary.",
+"By God's Word at last my sin I learned;\nThen I trembled at the law I'd spurned,\nTill my guilty soul imploring turned\nTo Calvary.",
+"Now I've giv'n to Jesus everything,\nNow I gladly own Him as my King,\nNow my raptured soul can only sing\nOf Calvary!",
+"Oh, the love that drew salvation's plan!\nOh, the grace that brought it down to man!\nOh, the mighty gulf that God did span\nAt Calvary!"]},
+{t:"Come, Thou Long-Expected Jesus", a:"Charles Wesley, 1744", verses:[
+"Come, Thou long-expected Jesus,\nBorn to set Thy people free;\nFrom our fears and sins release us,\nLet us find our rest in Thee.",
+"Israel's strength and consolation,\nHope of all the earth Thou art;\nDear desire of every nation,\nJoy of every longing heart.",
+"Born Thy people to deliver,\nBorn a child and yet a King,\nBorn to reign in us forever,\nNow Thy gracious kingdom bring.",
+"By Thine own eternal Spirit\nRule in all our hearts alone;\nBy Thine all-sufficient merit,\nRaise us to Thy glorious throne."]},
+{t:"Faith of Our Fathers", a:"Frederick W. Faber, 1849", verses:[
+"Faith of our fathers, living still,\nIn spite of dungeon, fire and sword;\nO how our hearts beat high with joy\nWhene'er we hear that glorious Word!",
+"Our fathers, chained in prisons dark,\nWere still in heart and conscience free;\nAnd truly blest would be our fate,\nIf we, like them, should die for thee.",
+"Faith of our fathers, we will strive\nTo win all nations unto thee;\nAnd through the truth that comes from God,\nWe all shall then be truly free.",
+"Faith of our fathers, we will love\nBoth friend and foe in all our strife;\nAnd preach thee, too, as love knows how\nBy kindly words and virtuous life."]},
+{t:"Hallelujah, What a Savior!", a:"Philip P. Bliss, 1875", verses:[
+"Man of sorrows, what a name\nFor the Son of God, who came\nRuined sinners to reclaim!\nHallelujah! What a Savior!",
+"Bearing shame and scoffing rude,\nIn my place condemned He stood;\nSealed my pardon with His blood;\nHallelujah! What a Savior!",
+"Guilty, vile, and helpless, we,\nSpotless Lamb of God was He;\nFull atonement! can it be?\nHallelujah! What a Savior!",
+"Lifted up was He to die,\nIt is finished! was His cry;\nNow in heaven exalted high;\nHallelujah! What a Savior!",
+"When He comes, our glorious King,\nAll His ransomed home to bring,\nThen anew this song we'll sing:\nHallelujah! What a Savior!"]},
+{t:"Jesus, I My Cross Have Taken", a:"Henry F. Lyte, 1824", verses:[
+"Jesus, I my cross have taken,\nAll to leave and follow Thee;\nDestitute, despised, forsaken,\nThou from hence my all shalt be.",
+"Let the world despise and leave me,\nThey have left my Savior, too;\nHuman hearts and looks deceive me;\nThou art not, like man, untrue.",
+"Man may trouble and distress me,\n'Twill but drive me to Thy breast;\nLife with trials hard may press me,\nHeaven will bring me sweeter rest.",
+"Haste thee on from grace to glory,\nArmed by faith and winged by prayer;\nHeaven's eternal day's before thee,\nGod's own hand shall guide thee there."]},
+{t:"Lord, I Hear of Showers of Blessing", a:"Elizabeth Codner, 1860", verses:[
+"Lord, I hear of showers of blessing\nThou art scattering full and free;\nShowers the thirsty land refreshing;\nLet some drops now fall on me.",
+"Pass me not, O gracious Father,\nSinful though my heart may be;\nThou mightst leave me, but the rather\nLet Thy mercy light on me.",
+"Pass me not, O tender Savior,\nLet me love and cling to Thee;\nI am longing for Thy favor,\nWhen Thou comest, call for me.",
+"Pass me not, O mighty Spirit,\nThou canst make the blind to see;\nWitnesser of Jesus' merit,\nSpeak the word of power to me."]},
+{t:"Must Jesus Bear the Cross Alone", a:"Thomas Shepherd, 1693", verses:[
+"Must Jesus bear the cross alone,\nAnd all the world go free?\nNo, there's a cross for every one,\nAnd there's a cross for me.",
+"The consecrated cross I'll bear\nTill death shall set me free;\nAnd then go home my crown to wear,\nFor there's a crown for me.",
+"Upon the crystal pavement, down\nAt Jesus' pierced feet,\nJoyful, I'll cast my golden crown\nAnd His dear name repeat.",
+"O precious cross! O glorious crown!\nO resurrection day!\nYe angels, from the stars come down\nAnd bear my soul away."]},
+{t:"O Day of Rest and Gladness", a:"Christopher Wordsworth, 1862", verses:[
+"O day of rest and gladness,\nO day of joy and light,\nO balm of care and sadness,\nMost beautiful, most bright;",
+"On thee, at the creation,\nThe light first had its birth;\nOn thee, for our salvation,\nChrist rose from depths of earth;",
+"Today on weary nations\nThe heavenly manna falls;\nTo holy convocations\nThe silver trumpet calls;",
+"New graces ever gaining\nFrom this our day of rest,\nWe reach the rest remaining\nTo spirits of the blest."]},
+{t:"Rejoice, the Lord Is King", a:"Charles Wesley, 1744", verses:[
+"Rejoice, the Lord is King!\nYour Lord and King adore;\nRejoice, give thanks and sing,\nAnd triumph evermore.",
+"Jesus, the Savior, reigns,\nThe God of truth and love;\nWhen He had purged our stains,\nHe took His seat above.",
+"His kingdom cannot fail,\nHe rules o'er earth and heaven;\nThe keys of death and hell\nAre to our Jesus given.",
+"Rejoice in glorious hope!\nOur Lord the Judge shall come,\nAnd take His servants up\nTo their eternal home."]},
+{t:"Stand Up, Stand Up for Jesus", a:"George Duffield Jr., 1858", verses:[
+"Stand up, stand up for Jesus,\nYe soldiers of the cross;\nLift high His royal banner,\nIt must not suffer loss.",
+"Stand up, stand up for Jesus,\nThe trumpet call obey;\nForth to the mighty conflict\nIn this His glorious day.",
+"Stand up, stand up for Jesus,\nStand in His strength alone;\nThe arm of flesh will fail you,\nYe dare not trust your own.",
+"Stand up, stand up for Jesus,\nThe strife will not be long;\nThis day the noise of battle,\nThe next the victor's song."]},
+{t:"There Is Power in the Blood", a:"Lewis E. Jones, 1899", verses:[
+"Would you be free from the burden of sin?\nThere's power in the blood, power in the blood;\nWould you o'er evil a victory win?\nThere's wonderful power in the blood.",
+"Would you be free from your passion and pride?\nThere's power in the blood, power in the blood;\nCome for a cleansing to Calvary's tide;\nThere's wonderful power in the blood.",
+"Would you be whiter, much whiter than snow?\nThere's power in the blood, power in the blood;\nSin-stains are lost in its life-giving flow;\nThere's wonderful power in the blood.",
+"Would you do service for Jesus your King?\nThere's power in the blood, power in the blood;\nWould you live daily His praises to sing?\nThere's wonderful power in the blood."]},
+{t:"To the Work", a:"Fanny Crosby, 1869", verses:[
+"To the work! to the work! we are servants of God,\nLet us follow the path that our Master has trod;\nWith the balm of His counsel our strength to renew,\nLet us do with our might what our hands find to do.",
+"To the work! to the work! let the hungry be fed;\nTo the fountain of life let the weary be led;\nIn the cross and its banner our glory shall be,\nWhile we herald the tidings, Salvation is free!",
+"To the work! to the work! there is labor for all;\nFor the kingdom of darkness and error shall fall;\nAnd the Name of Jehovah exalted shall be,\nIn the loud-swelling chorus, Salvation is free!",
+"To the work! to the work! in the strength of the Lord,\nAnd a robe and a crown shall our labor reward;\nWhen the home of the faithful our dwelling shall be,\nAnd we shout with the ransomed, Salvation is free!"]},
+{t:"Whiter Than Snow", a:"James Nicholson, 1872", verses:[
+"Lord Jesus, I long to be perfectly whole;\nI want Thee forever to live in my soul;\nBreak down every idol, cast out every foe;\nNow wash me, and I shall be whiter than snow.",
+"Lord Jesus, look down from Thy throne in the skies,\nAnd help me to make a complete sacrifice;\nI give up myself, and whatever I know;\nNow wash me, and I shall be whiter than snow.",
+"Lord Jesus, for this I most humbly entreat,\nI wait, blessed Lord, at Thy crucified feet;\nBy faith, for my cleansing, I see Thy blood flow;\nNow wash me, and I shall be whiter than snow.",
+"Lord Jesus, Thou seest I patiently wait;\nCome now, and within me a new heart create;\nTo those who have sought Thee, Thou never saidst No;\nNow wash me, and I shall be whiter than snow."]},
+{t:"I Stand Amazed in the Presence", a:"Charles H. Gabriel, 1905", verses:[
+"I stand amazed in the presence\nOf Jesus the Nazarene,\nAnd wonder how He could love me,\nA sinner, condemned, unclean.",
+"For me it was in the garden\nHe prayed, Not My will, but Thine;\nHe had no tears for His own griefs,\nBut sweat drops of blood for mine.",
+"In pity angels beheld Him,\nAnd came from the world of light\nTo comfort Him in the sorrows\nHe bore for my soul that night.",
+"He took my sins and my sorrows,\nHe made them His very own;\nHe bore the burden to Calvary,\nAnd suffered and died alone."]},
+{t:"Since Jesus Came Into My Heart", a:"Rufus H. McDaniel, 1914", verses:[
+"What a wonderful change in my life has been wrought\nSince Jesus came into my heart!\nI have light in my soul for which long I had sought,\nSince Jesus came into my heart!",
+"I have ceased from my wand'ring and going astray,\nSince Jesus came into my heart!\nAnd my sins, which were many, are all washed away,\nSince Jesus came into my heart!",
+"I'm possessed of a hope that is steadfast and sure,\nSince Jesus came into my heart!\nAnd no dark clouds of doubt now my pathway obscure,\nSince Jesus came into my heart!",
+"There's a light in the valley of death now for me,\nSince Jesus came into my heart!\nAnd the gates of the City beyond I can see,\nSince Jesus came into my heart!"]},
+{t:"Come, Holy Spirit, Heavenly Dove", a:"Isaac Watts, 1707", verses:[
+"Come, Holy Spirit, heavenly Dove,\nWith all Thy quickening powers,\nKindle a flame of sacred love\nIn these cold hearts of ours.",
+"Look how we grovel here below,\nFond of these trifling toys;\nOur souls can neither fly nor go\nTo reach eternal joys.",
+"In vain we tune our formal songs,\nIn vain we strive to rise;\nHosannas languish on our tongues,\nAnd our devotion dies.",
+"Dear Lord, and shall we ever live\nAt this poor dying rate?\nOur love so faint, so cold to Thee,\nAnd Thine to us so great?"]},
+{t:"More Love to Thee, O Christ", a:"Elizabeth P. Prentiss, 1856", verses:[
+"More love to Thee, O Christ, More love to Thee!\nHear Thou the prayer I make On bended knee.\nThis is my earnest plea: More love, O Christ, to Thee;\nMore love to Thee, More love to Thee!",
+"Once earthly joy I craved, Sought peace and rest;\nNow Thee alone I seek, Give what is best.\nThis all my prayer shall be: More love, O Christ, to Thee;\nMore love to Thee, More love to Thee!",
+"Let sorrow do its work, Send grief and pain;\nSweet are Thy messengers, Sweet their refrain,\nWhen they can sing with me: More love, O Christ, to Thee;\nMore love to Thee, More love to Thee!",
+"Then shall my latest breath Whisper Thy praise;\nThis be the parting cry My heart shall raise;\nThis still its prayer shall be: More love, O Christ, to Thee;\nMore love to Thee, More love to Thee!"]},
+{t:"My Maker and My King", a:"Anne Steele, 1760", verses:[
+"My Maker and my King,\nTo Thee my all I owe;\nThy sovereign bounty is the spring\nWhence all my blessings flow.",
+"The creature of Thy hand,\nOn Thee alone I live;\nMy God, Thy benefits demand\nMore praise than I can give.",
+"Lord, what can I impart,\nWhen all is Thine before?\nThy love demands a thankful heart;\nThe gift, alas, how poor!",
+"O let Thy grace inspire\nMy soul with strength divine;\nLet all my powers to Thee aspire,\nAnd all my days be Thine."]},
+{t:"Tell Me the Old, Old Story", a:"A. Catherine Hankey, 1866", verses:[
+"Tell me the old, old story,\nOf unseen things above,\nOf Jesus and His glory,\nOf Jesus and His love.",
+"Tell me the story slowly,\nThat I may take it in,\nThat wonderful redemption,\nGod's remedy for sin.",
+"Tell me the story softly,\nWith earnest tones and grave;\nRemember I'm the sinner\nWhom Jesus came to save.",
+"Tell me the same old story,\nWhen you have cause to fear\nThat this world's empty glory\nIs costing me too dear."]},
+{t:"I Am Resolved", a:"Palmer Hartsough, 1896", verses:[
+"I am resolved no longer to linger,\nCharmed by the world's delight;\nThings that are higher, things that are nobler,\nThese have allured my sight.",
+"I am resolved to go to the Savior,\nLeaving my sin and strife;\nHe is the true One, He is the just One,\nHe hath the words of life.",
+"I am resolved to follow the Savior,\nFaithful and true each day;\nHeed what He sayeth, do what He willeth,\nHe is the living Way.",
+"I am resolved to enter the kingdom,\nLeaving the paths of sin;\nFriends may oppose me, foes may beset me,\nStill will I enter in."]}
 ];
 HYMNS.forEach((h,i)=>h.id=i);
 
