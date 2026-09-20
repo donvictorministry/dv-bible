@@ -231,6 +231,21 @@
 
 <script src="app.js"></script>
 <script src="dv.js"></script>
-<script src="bible.html"></script>
+<script>
+  fetch('bible.html')
+    .then(res => res.text())
+    .then(html => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      document.body.appendChild(wrapper);
+      
+      wrapper.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    })
+    .catch(() => {});
+</script>
 </body>
 </html>
