@@ -6,6 +6,7 @@ const CORE_ASSETS = [
   './app.js',
   './dv.js',
   './bible.html',
+'./daily-verse.js',
   './widget.js',
   './manifest.json'
 ];
@@ -17,7 +18,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(CORE_ASSETS);
     })
   );
-});
+});      
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
