@@ -8,6 +8,9 @@
   const CONFIG = {
     isActive: true,
     
+    // App URL for Sharing
+    appUrl: 'https://play.google.com/store/apps/details?id=com.dv.bibleandhymns',
+
     // Contact Information (Footer)
     contact: {
       phone: 'tel:+1234567890',
@@ -153,11 +156,15 @@
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999998;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;';
 
     const btn = document.createElement('button');
-    btn.style.cssText = 'background:#1877f2;color:#fff;border:none;border-radius:24px;padding:20px 40px;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;gap:8px;transform:scale(0.8);transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
+    btn.style.cssText = 'background:#1877f2;color:#fff;border:none;border-radius:24px;padding:24px 32px;font-size:22px;font-weight:bold;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;gap:12px;transform:scale(0.8);transition:transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
     
-    btn.innerHTML = `<span>📖 Daily Verse</span><span style="font-size:16px;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:12px;">🔥 ${getStreakDisplay()} Day Streak</span>`;
+    // Fetch today's reference dynamically and assemble the strict popup UI
+    const verseRef = CONFIG.verses[getTodayIndex()].ref;
+    btn.innerHTML = `<span>Today's Verse of the Day</span><span style="font-size:18px;background:rgba(255,255,255,0.2);padding:6px 16px;border-radius:12px;">📖 ${verseRef} &nbsp;|&nbsp; 🔥 ${getStreakDisplay()} Day Streak</span>`;
     
+    // Strictly no "X" to dismiss. User MUST tap to proceed.
     btn.onclick = () => {
+
       overlay.style.opacity = '0';
       setTimeout(() => overlay.remove(), 300);
       openVerseModal();
@@ -180,7 +187,7 @@
     
     const streakNum = handleStreakUpdate();
     const verseData = CONFIG.verses[getTodayIndex()];
-    const shareText = `"${verseData.text}" - ${verseData.ref}\n\nRead more on DV Bible and Hymns app!`;
+    const shareText = `"${verseData.text}" - ${verseData.ref}\n\nRead more on DV Bible and Hymns app: ${CONFIG.appUrl}`;
 
     const modal = document.createElement('div');
     modal.id = 'dv-daily-verse-modal';
@@ -248,7 +255,24 @@
     const svgTG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
     const svgNative = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
 
-    shareContainer.appendChild(buildShareBtn('#607d8b', svgCopy, () => navigator.clipboard.writeText(shareText)));
+    shareContainer.appendChild(buildShareBtn('#607d8b', svgCopy, () => {
+      navigator.clipboard.writeText(shareText).then(() => {
+        // Build and display the centered toast notification
+        const toast = document.createElement('div');
+        toast.textContent = 'Copied to clipboard!';
+        toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background:rgba(0,0,0,0.85);color:#fff;padding:14px 28px;border-radius:30px;font-size:16px;font-weight:bold;z-index:9999999;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
+        document.body.appendChild(toast);
+        
+        // Fade in
+        requestAnimationFrame(() => toast.style.opacity = '1');
+        
+        // Fade out and remove after 2 seconds
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => toast.remove(), 300);
+        }, 2000);
+      });
+    }));
     shareContainer.appendChild(buildShareBtn('#25D366', svgWA, () => window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`)));
     shareContainer.appendChild(buildShareBtn('#1877f2', svgFB, () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`)));
     shareContainer.appendChild(buildShareBtn('#000000', svgX, () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`)));
@@ -287,7 +311,9 @@
       return card;
     };
 
-    cardsContainer.appendChild(buildContactCard('#25D366', 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z', 'WhatsApp', CONFIG.contact.whatsapp));
+    // Uses the authentic WhatsApp chat bubble SVG path
+    cardsContainer.appendChild(buildContactCard('#25D366', 'M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z', 'WhatsApp', CONFIG.contact.whatsapp));
+
     cardsContainer.appendChild(buildContactCard('#1877f2', 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z', 'Facebook', CONFIG.contact.facebook));
     cardsContainer.appendChild(buildContactCard('#ea4335', 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6', 'Email', CONFIG.contact.email));
     cardsContainer.appendChild(buildContactCard('#29b6f6', 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z', 'Phone', CONFIG.contact.phone));
