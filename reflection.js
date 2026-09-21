@@ -54,7 +54,8 @@
       author: 'Pastor John Doe',
       phone: 'tel:+1234567890',
       whatsapp: 'https://wa.me/1234567890',
-      email: 'mailto:example@gmail.com'
+      email: 'mailto:example@gmail.com',
+      facebook: 'https://www.facebook.com/yourpage'
     }
   };
 
@@ -214,69 +215,63 @@
     bodyContainer.appendChild(bodyText);
     bodyContainer.appendChild(showMoreBtn);
 
-    // Counseling & Prayer Links
-    const counselingWrap = document.createElement('div');
-    counselingWrap.style.cssText = `font-size:${CONFIG.styles.bodySize};color:${CONFIG.styles.bodyColor};text-align:left;margin-top:16px;line-height:1.6;`;
+        // 1. Android Share Sheet Button (Pill shaped) right below reflection
+    const nativeShareWrap = document.createElement('div');
+    nativeShareWrap.style.cssText = 'margin-top:24px;display:flex;justify-content:flex-start;';
     
-    counselingWrap.innerHTML = `
-      <div style="margin-bottom:8px;">For personal prayers and counseling:</div>
-      <a href="${CONFIG.content.phone}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Call</a>, 
-      <a href="${CONFIG.content.whatsapp}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Chat on WhatsApp</a>, 
-      <a href="${CONFIG.content.email}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Email</a>
-    `;
+    const nativeShareBtn = document.createElement('button');
+    nativeShareBtn.style.cssText = 'background:#1877f2;color:#fff;border:none;border-radius:24px;padding:12px 24px;font-size:16px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);';
+    nativeShareBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>Share Reflection</span>';
+    
+    nativeShareBtn.onclick = () => {
+      if (navigator.share) navigator.share({ title: 'Daily Reflection', text: shareText });
+    };
+    if (navigator.share) nativeShareWrap.appendChild(nativeShareBtn);
 
-    // Stripping hardcoded authorColor for Dark Mode inheritance
-    const author = buildText('div', `- ${CONFIG.content.author}`, `font-size:${CONFIG.styles.authorSize};color:inherit;font-weight:bold;text-align:left;margin-top:24px;`);
-
-    // Share Buttons Row (Exact match to Daily Verse)
-    const shareContainer = document.createElement('div');
-    shareContainer.style.cssText = 'display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px;padding-bottom:32px;border-bottom:1px solid rgba(128,128,128,0.2);width:100%;';
-
-    const buildShareBtn = (bg, svg, action) => {
-      const btn = document.createElement('button');
-      btn.style.cssText = `width:56px;height:56px;border-radius:50%;background:${bg};border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.15);flex-shrink:0;`;
-      btn.innerHTML = svg;
-      btn.onclick = action;
-      return btn;
+    // 2. Counseling Intro Text & 4-Icon Row
+    const counselingWrap = document.createElement('div');
+    counselingWrap.style.cssText = `font-size:18px;color:inherit;text-align:left;margin-top:32px;`;
+    
+    const counselingText = document.createElement('div');
+    counselingText.textContent = 'For personal prayers and counseling reach out to me in any of the below social media buttons;';
+    counselingText.style.cssText = 'font-weight:bold;margin-bottom:16px;line-height:1.5;';
+    
+    const iconsRow = document.createElement('div');
+    iconsRow.style.cssText = 'display:flex;gap:16px;align-items:center;flex-wrap:wrap;';
+    
+    const buildIcon = (bg, svg, url) => {
+      const a = document.createElement('a');
+      a.href = url || '#';
+      a.target = '_blank';
+      a.style.cssText = `width:44px;height:44px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;box-shadow:0 4px 6px rgba(0,0,0,0.1);text-decoration:none;`;
+      a.innerHTML = svg;
+      return a;
     };
 
-    const svgCopy = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-    const svgWA = '<svg width="28" height="28" viewBox="0 0 64 64"><path d="M32,14 C22.05,14 14,22.05 14,32 C14,36 15.2,39.7 17.4,42.8 L14,50 L21.2,46.6 C24.3,48.8 28,50 32,50 C41.95,50 50,41.95 50,32 C50,22.05 41.95,14 32,14 Z" fill="none" stroke="#fff" stroke-width="4"/><path d="M25,25 c-2,0 -4,1.5 -4,3.5 c0,8 6.5,14.5 14.5,14.5 c2,0 3.5,-2 3.5,-4 c0,-1 -1,-2.5 -2.5,-3.5 c-1.5,-1 -3,-0.5 -4,0.5 l-1.5,1.5 c-2.5,-1.5 -4,-3 -5.5,-5.5 l1.5,-1.5 c1,-1 1.5,-2.5 0.5,-4 c-1,-1.5 -2.5,-2.5 -3.5,-2.5 Z" fill="#fff"/></svg>';
-    const svgFB = '<svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>';
-    const svgX = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4l16 16M4 20L20 4"/></svg>';
-    const svgTG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-    const svgNative = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
+    const svgEmail = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
+    const svgPhone = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+    const svgWA = '<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>';
+    const svgFB = '<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>';
 
-    shareContainer.appendChild(buildShareBtn('#607d8b', svgCopy, () => {
-      navigator.clipboard.writeText(shareText).then(() => {
-        const toast = document.createElement('div');
-        toast.textContent = 'Copied to clipboard!';
-        toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);background:rgba(0,0,0,0.85);color:#fff;padding:14px 28px;border-radius:30px;font-size:16px;font-weight:bold;z-index:9999999;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
-        document.body.appendChild(toast);
-        requestAnimationFrame(() => toast.style.opacity = '1');
-        setTimeout(() => {
-          toast.style.opacity = '0';
-          setTimeout(() => toast.remove(), 300);
-        }, 2000);
-      });
-    }));
-    shareContainer.appendChild(buildShareBtn('#25D366', svgWA, () => window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`)));
-    shareContainer.appendChild(buildShareBtn('#1877f2', svgFB, () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`)));
-    shareContainer.appendChild(buildShareBtn('#000000', svgX, () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`)));
-    shareContainer.appendChild(buildShareBtn('#0088cc', svgTG, () => window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareText)}`)));
-    
-    if (navigator.share) {
-      shareContainer.appendChild(buildShareBtn('#ff5722', svgNative, () => navigator.share({ title: 'Daily Reflection', text: shareText })));
-    }
+    iconsRow.appendChild(buildIcon('#ea4335', svgEmail, CONFIG.content.email));
+    iconsRow.appendChild(buildIcon('#29b6f6', svgPhone, CONFIG.content.phone));
+    iconsRow.appendChild(buildIcon('#25D366', svgWA, CONFIG.content.whatsapp));
+    iconsRow.appendChild(buildIcon('#1877f2', svgFB, CONFIG.content.facebook || 'https://facebook.com/')); 
 
-    // Assembly
+    counselingWrap.appendChild(counselingText);
+    counselingWrap.appendChild(iconsRow);
+
+    // 3. Author Name at the bottom
+    const author = buildText('div', `- ${CONFIG.content.author}`, `font-size:${CONFIG.styles.authorSize};color:inherit;font-weight:bold;text-align:left;margin-top:32px;`);
+
+    // Strict Assembly Order
     scrollBody.appendChild(streakBadge);
     scrollBody.appendChild(subtitle);
     scrollBody.appendChild(referenceWrap);
     scrollBody.appendChild(bodyContainer);
-    scrollBody.appendChild(author);
-    scrollBody.appendChild(shareContainer);
+    if (navigator.share) scrollBody.appendChild(nativeShareWrap);
     scrollBody.appendChild(counselingWrap);
+    scrollBody.appendChild(author);
 
     modal.appendChild(topBar);
     modal.appendChild(scrollBody);
