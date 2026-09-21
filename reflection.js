@@ -48,11 +48,22 @@
         'But God calls us to a different response. He asks us to trade our heavy burdens for His perfect peace through the simple act of prayer and thanksgiving.',
         'Today, whatever you are facing, bring it to Him. Speak your worries out loud, thank Him for His past faithfulness, and watch as His peace guards your heart.'
       ],
-      author: 'Pastor John Doe'
+      author: 'Pastor John Doe',
+      phone: 'tel:+1234567890',
+      whatsapp: 'https://wa.me/1234567890',
+      email: 'mailto:example@gmail.com'
     }
   };
 
-  if (!CONFIG.isActive) return;
+    if (!CONFIG.isActive) return;
+
+  // Inject CSS Keyframes and Clamp Utility
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes dvBlink { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0.3; transform: scale(0.9); } }
+    .dv-reflection-clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  `;
+  document.head.appendChild(style);
 
   // ==========================================
   // 1. QUICK ACTIONS BUTTON INJECTION
@@ -64,7 +75,11 @@
     const btn = document.createElement('button');
     btn.id = 'dv-qa-reflection';
     btn.className = 'qa-btn';
-    btn.innerHTML = `${CONFIG.buttonIcon}<span>${CONFIG.buttonText}</span>`;
+    btn.style.position = 'relative';
+    
+    const envelopeIcon = `<svg id="dv-reflection-badge" viewBox="0 0 24 24" fill="#1877f2" style="position:absolute;top:-4px;right:-4px;width:22px;height:22px;animation:dvBlink 0.8s infinite alternate;z-index:2;"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg>`;
+    
+    btn.innerHTML = `${envelopeIcon}${CONFIG.buttonIcon}<span>${CONFIG.buttonText}</span>`;
     
     btn.onclick = openReflectionModal;
     qaContainer.appendChild(btn);
@@ -81,13 +96,17 @@
     modal.id = 'dv-reflection-modal';
     modal.style.cssText = `position:fixed;top:0;left:0;width:100dvw;height:100dvh;background:${CONFIG.styles.modalBg};z-index:999999;display:flex;flex-direction:column;opacity:0;transition:opacity 0.3s ease;font-family:system-ui, -apple-system, sans-serif;`;
 
+        // Remove the blinking envelope upon opening
+    const badge = document.getElementById('dv-reflection-badge');
+    if (badge) badge.remove();
+
     // Fixed Top Bar with Close Button
     const topBar = document.createElement('div');
-    topBar.style.cssText = 'flex-shrink:0;padding:16px;display:flex;justify-content:flex-end;box-shadow:0 2px 5px rgba(0,0,0,0.05);background:inherit;';
+    topBar.style.cssText = 'flex-shrink:0;padding:16px;display:flex;justify-content:flex-end;box-shadow:0 4px 6px rgba(0,0,0,0.1);background:#1877f2;';
     
     const closeBtn = document.createElement('button');
     closeBtn.innerHTML = '&times;';
-    closeBtn.style.cssText = 'background:none;border:none;font-size:36px;color:#333;cursor:pointer;line-height:1;padding:8px;';
+    closeBtn.style.cssText = 'background:none;border:none;font-size:36px;color:#ffffff;cursor:pointer;line-height:1;padding:8px;';
     closeBtn.onclick = () => {
       modal.style.opacity = '0';
       setTimeout(() => modal.parentNode && modal.parentNode.removeChild(modal), 300);
@@ -123,14 +142,47 @@
     referenceWrap.appendChild(reference);
     referenceWrap.appendChild(verse);
 
+    // Body Text with Clamp & Toggle
+    const bodyContainer = document.createElement('div');
     const bodyText = buildText('div', CONFIG.content.body, `font-size:${CONFIG.styles.bodySize};color:${CONFIG.styles.bodyColor};text-align:left;line-height:1.6;margin-top:8px;`);
-    const author = buildText('div', `- ${CONFIG.content.author}`, `font-size:${CONFIG.styles.authorSize};color:${CONFIG.styles.authorColor};font-weight:bold;text-align:left;margin-top:12px;`);
+    bodyText.className = 'dv-reflection-clamp';
+    
+    const showMoreBtn = document.createElement('button');
+    showMoreBtn.textContent = 'SHOW MORE';
+    showMoreBtn.style.cssText = 'background:none;border:none;color:#0056b3;font-size:18px;font-weight:900;padding:8px 0;cursor:pointer;text-decoration:underline;margin-top:4px;text-align:left;display:block;';
+    
+    showMoreBtn.onclick = () => {
+      if (bodyText.classList.contains('dv-reflection-clamp')) {
+        bodyText.classList.remove('dv-reflection-clamp');
+        showMoreBtn.textContent = 'SHOW LESS';
+      } else {
+        bodyText.classList.add('dv-reflection-clamp');
+        showMoreBtn.textContent = 'SHOW MORE';
+      }
+    };
+
+    bodyContainer.appendChild(bodyText);
+    bodyContainer.appendChild(showMoreBtn);
+
+    // Counseling & Prayer Links
+    const counselingWrap = document.createElement('div');
+    counselingWrap.style.cssText = `font-size:${CONFIG.styles.bodySize};color:${CONFIG.styles.bodyColor};text-align:left;margin-top:16px;line-height:1.6;`;
+    
+    counselingWrap.innerHTML = `
+      <div style="margin-bottom:8px;">For personal prayers and counseling:</div>
+      <a href="${CONFIG.content.phone}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Call</a>, 
+      <a href="${CONFIG.content.whatsapp}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Chat on WhatsApp</a>, 
+      <a href="${CONFIG.content.email}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Email</a>
+    `;
+
+    const author = buildText('div', `- ${CONFIG.content.author}`, `font-size:${CONFIG.styles.authorSize};color:${CONFIG.styles.authorColor};font-weight:bold;text-align:left;margin-top:24px;`);
 
     // Assembly
     scrollBody.appendChild(title);
     scrollBody.appendChild(subtitle);
     scrollBody.appendChild(referenceWrap);
-    scrollBody.appendChild(bodyText);
+    scrollBody.appendChild(bodyContainer);
+    scrollBody.appendChild(counselingWrap);
     scrollBody.appendChild(author);
 
     modal.appendChild(topBar);
