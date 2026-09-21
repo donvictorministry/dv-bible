@@ -6,6 +6,7 @@ const CORE_ASSETS = [
   './app.js',
   './dv.js',
   './bible.html',
+  './widget.js',
   './manifest.json'
 ];
 
