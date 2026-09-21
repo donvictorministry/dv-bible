@@ -77,7 +77,7 @@
     btn.className = 'qa-btn';
     btn.style.position = 'relative';
     
-    const envelopeIcon = `<svg id="dv-reflection-badge" viewBox="0 0 24 24" fill="#1877f2" style="position:absolute;top:-4px;right:-4px;width:22px;height:22px;animation:dvBlink 0.8s infinite alternate;z-index:2;"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg>`;
+    const envelopeIcon = `<svg id="dv-reflection-badge" viewBox="0 0 24 24" fill="#FF0000" style="position:absolute;top:-8px;right:-8px;width:30px;height:30px;animation:dvBlink 0.8s infinite alternate;z-index:2;"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg>`;
     
     btn.innerHTML = `${envelopeIcon}${CONFIG.buttonIcon}<span>${CONFIG.buttonText}</span>`;
     
@@ -91,28 +91,37 @@
   const openReflectionModal = () => {
     if (document.getElementById('dv-reflection-modal')) return;
 
-    // Master Overlay (Strictly 100dvh, 100dvw edge-to-edge)
+    // Master Overlay (Uses inherit to natively adopt your app's Dark/Light mode engine)
     const modal = document.createElement('div');
     modal.id = 'dv-reflection-modal';
-    modal.style.cssText = `position:fixed;top:0;left:0;width:100dvw;height:100dvh;background:${CONFIG.styles.modalBg};z-index:999999;display:flex;flex-direction:column;opacity:0;transition:opacity 0.3s ease;font-family:system-ui, -apple-system, sans-serif;`;
+    // Inherits background and text colors globally
+    modal.style.cssText = `position:fixed;top:0;left:0;width:100dvw;height:100dvh;background:var(--bg-color, inherit);color:var(--text-color, inherit);z-index:999999;display:flex;flex-direction:column;opacity:0;transition:opacity 0.3s ease;font-family:inherit;`;
 
-        // Remove the blinking envelope upon opening
+      // Remove the blinking envelope upon opening
     const badge = document.getElementById('dv-reflection-badge');
     if (badge) badge.remove();
 
-    // Fixed Top Bar with Close Button
+    // Fixed Top Bar with Native Back Arrow and Centered Title
     const topBar = document.createElement('div');
-    topBar.style.cssText = 'flex-shrink:0;padding:16px;display:flex;justify-content:flex-end;box-shadow:0 4px 6px rgba(0,0,0,0.1);background:#1877f2;';
+    topBar.style.cssText = 'flex-shrink:0;height:64px;display:flex;align-items:center;justify-content:center;position:relative;background:#1877f2;box-shadow:0 2px 4px rgba(0,0,0,0.1);';
+    
+    const headerTitle = document.createElement('div');
+    headerTitle.textContent = 'REFLECTION';
+    headerTitle.style.cssText = 'color:#ffffff;font-size:22px;font-weight:bold;letter-spacing:0.5px;';
     
     const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '&times;';
-    closeBtn.style.cssText = 'background:none;border:none;font-size:36px;color:#ffffff;cursor:pointer;line-height:1;padding:8px;';
+    // Thick SVG chevron matching your exact screenshot
+    closeBtn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M15 18l-6-6 6-6"/></svg>';
+    closeBtn.style.cssText = 'position:absolute;left:4px;background:none;border:none;cursor:pointer;padding:12px;display:flex;align-items:center;justify-content:center;';
+    
     closeBtn.onclick = () => {
       modal.style.opacity = '0';
       setTimeout(() => modal.parentNode && modal.parentNode.removeChild(modal), 300);
     };
+    
     topBar.appendChild(closeBtn);
-
+    topBar.appendChild(headerTitle);
+  
     // Scrollable Content Container
     const scrollBody = document.createElement('div');
     scrollBody.style.cssText = 'flex:1;overflow-y:auto;padding:24px 16px;display:flex;flex-direction:column;gap:20px;';
@@ -129,9 +138,9 @@
       return el;
     };
 
-    // Construct UI elements mapping strictly to configuration styles
-    const title = buildText('div', CONFIG.content.title, `font-size:${CONFIG.styles.titleSize};color:${CONFIG.styles.titleColor};font-weight:bold;margin-bottom:4px;`);
-    const subtitle = buildText('div', CONFIG.content.subtitle, `font-size:${CONFIG.styles.subtitleSize};color:${CONFIG.styles.subtitleColor};font-weight:bold;`);
+    // Construct UI elements (Title is now in the header)
+    // Stripping hardcoded color so it respects Dark Mode text rules
+    const subtitle = buildText('div', CONFIG.content.subtitle, `font-size:${CONFIG.styles.subtitleSize};color:inherit;font-weight:bold;`);
     
     const referenceWrap = document.createElement('div');
     referenceWrap.style.cssText = 'margin-top:12px;padding:16px;background:rgba(0,0,0,0.03);border-radius:12px;border-left:6px solid ' + CONFIG.styles.verseColor + ';';
@@ -142,9 +151,13 @@
     referenceWrap.appendChild(reference);
     referenceWrap.appendChild(verse);
 
-    // Body Text with Clamp & Toggle
+    // Body Text with Clamp, Gray Background, and Facebook Blue Left Border
     const bodyContainer = document.createElement('div');
-    const bodyText = buildText('div', CONFIG.content.body, `font-size:${CONFIG.styles.bodySize};color:${CONFIG.styles.bodyColor};text-align:left;line-height:1.6;margin-top:8px;`);
+    // Using an alpha channel for gray (rgba) ensures it looks good in both Dark and Light modes
+    bodyContainer.style.cssText = 'margin-top:12px;padding:16px;background:rgba(128,128,128,0.1);border-radius:12px;border-left:6px solid #1877f2;';
+    
+    // Stripping hardcoded bodyColor for Dark Mode inheritance
+    const bodyText = buildText('div', CONFIG.content.body, `font-size:${CONFIG.styles.bodySize};color:inherit;text-align:left;line-height:1.6;`);
     bodyText.className = 'dv-reflection-clamp';
     
     const showMoreBtn = document.createElement('button');
@@ -175,10 +188,10 @@
       <a href="${CONFIG.content.email}" style="color:#1877f2;text-decoration:underline;font-style:italic;font-weight:bold;">Email</a>
     `;
 
-    const author = buildText('div', `- ${CONFIG.content.author}`, `font-size:${CONFIG.styles.authorSize};color:${CONFIG.styles.authorColor};font-weight:bold;text-align:left;margin-top:24px;`);
+    // Stripping hardcoded authorColor for Dark Mode inheritance
+    const author = buildText('div', `- ${CONFIG.content.author}`, `font-size:${CONFIG.styles.authorSize};color:inherit;font-weight:bold;text-align:left;margin-top:24px;`);
 
-    // Assembly
-    scrollBody.appendChild(title);
+    // Assembly (Title removed from scroll body)
     scrollBody.appendChild(subtitle);
     scrollBody.appendChild(referenceWrap);
     scrollBody.appendChild(bodyContainer);
