@@ -9,7 +9,7 @@
     isActive: true,
     
     // App URL for Sharing
-    appUrl: 'https://play.google.com/store/apps/details?id=com.dv.bibleandhymns',
+    appUrl: 'https://donvictorministry.github.io/dv-bible/',
 
     // Contact Information (Footer)
     contact: {
